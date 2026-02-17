@@ -15,8 +15,7 @@ def auth_api():
 @allure.story("Login with valid credentials")
 def test_login_success(auth_api: AuthAPI):
     auth_data: LoginResponse = auth_api.login(
-        settings.TEST_USERNAME,
-        settings.TEST_PASSWORD.get_secret_value()
+        settings.TEST_USERNAME, settings.TEST_PASSWORD.get_secret_value()
     )
 
     assert auth_data.token is not None, "JWT token is missing in the response"

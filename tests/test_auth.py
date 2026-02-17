@@ -3,6 +3,7 @@ import allure
 from api.auth_api import AuthAPI
 from schemas.auth_schema import LoginResponse
 from utils.config import settings
+from api.base_api import APIError
 
 
 @pytest.fixture
@@ -21,3 +22,9 @@ def test_login_success(auth_api: AuthAPI):
     assert auth_data.token is not None, "JWT token is missing in the response"
     assert auth_data.username == settings.TEST_USERNAME
     assert "@" in auth_data.email
+
+
+def test_login_invalid_credentials(username: str, password: str) -> None:
+    api = AuthAPI()
+    with pytest.raises(APIError):
+        api.login(username, password)

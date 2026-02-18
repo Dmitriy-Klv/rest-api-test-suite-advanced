@@ -24,7 +24,8 @@ def test_login_success(auth_api: AuthAPI):
     assert "@" in auth_data.email
 
 
-def test_login_invalid_credentials(username: str, password: str) -> None:
+def test_login_invalid_credentials():
     api = AuthAPI()
     with pytest.raises(APIError):
-        api.login(username, password)
+        api.login("wrong_user", "wrong_pass")
+

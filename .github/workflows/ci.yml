@@ -65,6 +65,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest-cov allure-pytest
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
+
       - name: Run tests
         run: pytest -v --cov=api --cov-report=xml --alluredir=allure-results
 

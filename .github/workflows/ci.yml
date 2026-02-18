@@ -61,6 +61,11 @@ jobs:
           allure_history: allure-history
           keep_reports: 20
 
+      - name: Create Redirect Index
+        if: always()
+        run: |
+          echo '<meta http-equiv="refresh" content="0; url=./last-history/index.html" />' > allure-history/index.html
+
       - name: Deploy report to Github Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3

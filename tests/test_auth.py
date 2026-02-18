@@ -28,4 +28,3 @@ def test_login_invalid_credentials():
     api = AuthAPI()
     with pytest.raises(APIError):
         api.login("wrong_user", "wrong_pass")
-

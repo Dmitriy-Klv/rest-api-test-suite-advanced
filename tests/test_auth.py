@@ -1,9 +1,10 @@
-import pytest
 import allure
+import pytest
+
 from api.auth_api import AuthAPI
+from api.base_api import APIError
 from schemas.auth_schema import LoginResponse
 from utils.config import settings
-from api.base_api import APIError
 
 
 @pytest.fixture

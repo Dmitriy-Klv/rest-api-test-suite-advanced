@@ -1,9 +1,11 @@
-import logging
-import requests
 import json
-import time
+import logging
 import random
+import time
 from typing import Any, Dict, Optional
+
+import requests
+
 from utils.config import settings
 
 logger = logging.getLogger(__name__)

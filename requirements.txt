@@ -1,6 +1,8 @@
 pytest
 requests
-pydantic>=2.0
-pydantic-settings>=2.0
+pydantic
+pydantic-settings
+email-validator
 python-dotenv
 allure-pytest
+faker

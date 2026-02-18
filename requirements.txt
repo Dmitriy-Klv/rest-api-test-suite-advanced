@@ -1,5 +1,6 @@
 pytest
 requests
-pydantic
+pydantic>=2.0
+pydantic-settings>=2.0
 python-dotenv
 allure-pytest

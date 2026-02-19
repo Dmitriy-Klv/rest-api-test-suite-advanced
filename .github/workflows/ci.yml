@@ -38,20 +38,24 @@ jobs:
       - name: Run tests
         run: pytest --alluredir=allure-results --clean-alluredir
 
-      - name: Install Allure CLI
+      - name: Install Java
         run: |
           sudo apt-get update
           sudo apt-get install -y default-jre
-          wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.27.0.tgz
-          tar -zxvf allure-2.27.0.tgz
-          sudo mv allure-2.27.0 /opt/allure
+
+      - name: Install Allure CLI (fixed version)
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.36.0/allure-2.36.0.tgz
+          tar -zxvf allure-2.36.0.tgz
+          sudo mv allure-2.36.0 /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          allure --version
 
       - name: Generate Allure Report
         run: |
           allure generate allure-results --clean -o allure-report
 
-      - name: Deploy report to Github Pages
+      - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

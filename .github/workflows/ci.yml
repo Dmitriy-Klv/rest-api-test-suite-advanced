@@ -12,6 +12,7 @@ permissions:
 jobs:
   tests:
     runs-on: ubuntu-latest
+
     env:
       TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
       TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
@@ -32,41 +33,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install black flake8 isort
-
-      - name: Lint Code
-        run: |
-          black . --check
-          isort . --check-only
-          flake8 .
-        continue-on-error: true
+          pip install allure-pytest
 
       - name: Run tests
-        run: pytest -v --alluredir=allure-results --clean-alluredir
-        continue-on-error: true
+        run: pytest --alluredir=allure-results --clean-alluredir
 
-      - name: Setup Allure Environment
+      - name: Generate Allure Report
         if: always()
-        run: |
-          mkdir -p allure-results
-          echo "OS=Ubuntu-latest" >> allure-results/environment.properties
-          echo "Python=3.11" >> allure-results/environment.properties
-          echo "Project=REST-API-Test-Suite" >> allure-results/environment.properties
-
-      - name: Get Allure history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages-temp
-
-      - name: Allure Report action
-        uses: simple-elf/allure-report-action@master
-        if: always()
+        uses: simple-elf/allure-report-action@v1.7
         with:
           allure_results: allure-results
-          allure_history: allure-history
+          allure_report: allure-report
+          gh_pages: gh-pages
           keep_reports: 20
 
       - name: Deploy report to Github Pages

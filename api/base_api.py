@@ -1,13 +1,11 @@
-import logging
 import random
 import time
 from typing import Any, Dict, Optional
-
 import requests
-
 from utils.config import settings
+from utils.logger import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class APIError(Exception):

@@ -2,7 +2,10 @@ import pytest
 import allure
 from api.products_api import ProductsAPI
 from schemas.product_schema import ProductCreateRequest, ProductUpdateRequest
+from faker import Faker
 
+
+fake = Faker()
 
 @pytest.fixture
 def products_api():
@@ -37,3 +40,17 @@ def test_product_lifecycle(products_api):
     with allure.step("Get product by ID"):
         product = products_api.get_product_by_id(stable_id)
         assert product.id == stable_id
+
+
+@allure.story("Data-driven product creation")
+def test_create_random_product(products_api):
+    payload = ProductCreateRequest(
+        title=fake.catch_phrase(),
+        description=fake.paragraph(nb_sentences=2),
+        price=round(fake.pyfloat(left_digits=2, right_digits=2, positive=True, min_value=1), 2)
+    )
+
+    with allure.step(f"Create product with random data: {payload.title}"):
+        product = products_api.create_product(payload)
+        assert product.title == payload.title
+        assert product.price == payload.price

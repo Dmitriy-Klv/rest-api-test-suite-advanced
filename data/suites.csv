@@ -1,4 +1,5 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","2180","test_product_lifecycle","tests","2026-02-21","passed","2026-02-21","","test_products","",""
-"","764","test_login_success","tests","2026-02-21","passed","2026-02-21","","test_auth","",""
-"","624","test_login_invalid_credentials","tests","2026-02-21","passed","2026-02-21","","test_auth","",""
+"","641","test_login_invalid_credentials","tests","2026-02-23","passed","2026-02-23","","test_auth","",""
+"","3385","test_product_lifecycle","tests","2026-02-23","passed","2026-02-23","","test_products","",""
+"","866","test_create_random_product","tests","2026-02-23","passed","2026-02-23","","test_products","",""
+"","464","test_login_success","tests","2026-02-23","passed","2026-02-23","","test_auth","",""

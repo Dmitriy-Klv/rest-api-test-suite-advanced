@@ -1,0 +1,2 @@
+[2026-02-24 18:59:25] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/search?q=Computers after 0.50s delay
+[2026-02-24 18:59:25] [INFO] [api.base_api] Received response: 200

@@ -1,7 +1,7 @@
 import pytest
 import allure
 from api.products_api import ProductsAPI
-from schemas.product_schema import ProductCreateRequest, ProductUpdateRequest
+from schemas.product_schema import ProductCreateRequest, ProductUpdateRequest, ProductListResponse
 from faker import Faker
 
 
@@ -54,3 +54,15 @@ def test_create_random_product(products_api):
         product = products_api.create_product(payload)
         assert product.title == payload.title
         assert product.price == payload.price
+
+
+@allure.story("Search products by query")
+@pytest.mark.parametrize("query", ["Phone", "Computers", "Laptop"])
+def test_search_products(products_api, query):
+    with allure.step(f"Search for '{query}'"):
+        response = products_api.get(f"/products/search?q={query}", expected_status=200)
+        data = ProductListResponse.model_validate(response.json())
+
+        for product in data.products:
+            assert query.lower() in product.title.lower() or query.lower() in product.description.lower(), \
+                f"Product {product.id} does not match search query '{query}'"

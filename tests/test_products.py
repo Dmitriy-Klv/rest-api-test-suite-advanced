@@ -66,3 +66,17 @@ def test_search_products(products_api, query):
         for product in data.products:
             assert query.lower() in product.title.lower() or query.lower() in product.description.lower(), \
                 f"Product {product.id} does not match search query '{query}'"
+
+
+@allure.story("Filter products by category")
+def test_filter_products_by_category(products_api):
+    category = "smartphones"
+
+    with allure.step(f"Request products in category: {category}"):
+        data = products_api.get_products_by_category(category)
+
+    with allure.step("Verify all returned products belong to the category"):
+        assert data.total > 0, f"No products found in category {category}"
+        for product in data.products:
+            assert product.category == category, \
+                f"Product {product.id} has wrong category: {product.category}"

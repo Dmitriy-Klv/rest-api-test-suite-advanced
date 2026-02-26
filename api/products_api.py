@@ -29,3 +29,7 @@ class ProductsAPI(BaseAPI):
     def delete_product(self, product_id: int) -> dict:
         response = self.delete(f"/products/{product_id}", expected_status=200)
         return response.json()
+
+    def get_products_by_category(self, category_name: str) -> ProductListResponse:
+        response = self.get(f"/products/category/{category_name}", expected_status=200)
+        return ProductListResponse.model_validate(response.json())

@@ -1,0 +1,2 @@
+[2026-02-27 06:55:05] [INFO] [api.base_api] Sending POST request to: https://dummyjson.com/products/add after 0.54s delay
+[2026-02-27 06:55:06] [INFO] [api.base_api] Received response: 201

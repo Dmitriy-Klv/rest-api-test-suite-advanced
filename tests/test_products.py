@@ -80,3 +80,20 @@ def test_filter_products_by_category(products_api):
         for product in data.products:
             assert product.category == category, \
                 f"Product {product.id} has wrong category: {product.category}"
+
+
+@allure.story("Sort products by price descending")
+def test_sort_products_by_price_desc(products_api):
+    params = {
+        "sortBy": "price",
+        "order": "desc"
+    }
+
+    with allure.step(f"Request products sorted by price (descending)"):
+        response = products_api.get("/products", params=params, expected_status=200)
+        data = ProductListResponse.model_validate(response.json())
+
+    with allure.step("Verify that prices are in descending order"):
+        prices = [product.price for product in data.products]
+        assert prices == sorted(prices, reverse=True), \
+            f"Prices are not sorted correctly: {prices}"

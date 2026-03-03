@@ -153,3 +153,22 @@ def test_products_response_contract(products_api):
             assert product.id > 0, "Product ID must be positive"
             assert product.title.strip(), "Product title cannot be empty"
             assert product.price > 0, "Product price must be positive"
+
+
+@allure.story("Partial update should not override unspecified fields")
+def test_partial_update_preserves_other_fields(products_api):
+    product_id = 1
+
+    with allure.step("Get original product data"):
+        original = products_api.get_product_by_id(product_id)
+
+    with allure.step("Update only title field"):
+        update_payload = ProductUpdateRequest(title="Partial Update Title")
+        updated = products_api.update_product(product_id, update_payload)
+
+    with allure.step("Verify title updated"):
+        assert updated.title == "Partial Update Title"
+
+    with allure.step("Verify other fields remain unchanged"):
+        assert updated.price == original.price
+        assert updated.description == original.description

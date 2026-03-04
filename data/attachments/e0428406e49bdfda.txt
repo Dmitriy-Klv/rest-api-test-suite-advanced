@@ -1,2 +1,0 @@
-[2026-03-04 07:41:54] [INFO] [api.base_api] Sending POST request to: https://dummyjson.com/auth/login after 0.52s delay
-[2026-03-04 07:41:55] [INFO] [api.base_api] Received response: 400

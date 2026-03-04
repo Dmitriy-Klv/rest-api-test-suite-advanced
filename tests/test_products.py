@@ -172,3 +172,19 @@ def test_partial_update_preserves_other_fields(products_api):
     with allure.step("Verify other fields remain unchanged"):
         assert updated.price == original.price
         assert updated.description == original.description
+
+
+@allure.story("GET request should be idempotent and consistent")
+def test_get_product_is_idempotent(products_api):
+    product_id = 1
+
+    with allure.step("First GET request"):
+        first_response = products_api.get_product_by_id(product_id)
+
+    with allure.step("Second GET request"):
+        second_response = products_api.get_product_by_id(product_id)
+
+    with allure.step("Verify responses are identical"):
+        assert first_response.model_dump() == second_response.model_dump(), (
+            "GET request is not idempotent — responses differ"
+        )

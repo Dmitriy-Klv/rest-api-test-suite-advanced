@@ -188,3 +188,41 @@ def test_get_product_is_idempotent(products_api):
         assert first_response.model_dump() == second_response.model_dump(), (
             "GET request is not idempotent — responses differ"
         )
+
+@allure.story("Pagination consistency and data integrity")
+def test_products_pagination_consistency(products_api):
+    limit = 5
+
+    with allure.step("Request first page of products"):
+        first_page_response = products_api.get(
+            "/products",
+            params={"limit": limit, "skip": 0},
+            expected_status=200,
+        )
+        first_page = ProductListResponse.model_validate(first_page_response.json())
+
+    with allure.step("Request second page of products"):
+        second_page_response = products_api.get(
+            "/products",
+            params={"limit": limit, "skip": limit},
+            expected_status=200,
+        )
+        second_page = ProductListResponse.model_validate(second_page_response.json())
+
+    with allure.step("Validate pagination metadata"):
+        assert first_page.limit == limit
+        assert second_page.limit == limit
+        assert first_page.skip == 0
+        assert second_page.skip == limit
+        assert first_page.total == second_page.total
+
+    with allure.step("Validate number of items per page"):
+        assert len(first_page.products) <= limit
+        assert len(second_page.products) <= limit
+
+    with allure.step("Ensure no duplicated products between pages"):
+        first_ids = {product.id for product in first_page.products}
+        second_ids = {product.id for product in second_page.products}
+
+        intersection = first_ids.intersection(second_ids)
+        assert not intersection, f"Duplicated product IDs found: {intersection}"

@@ -16,11 +16,18 @@ Advanced API test automation framework designed for the [DummyJSON](https://dumm
 ---
 
 ## 🏗 Key Engineering Features
-* **Quality by Design:** Modular architecture built with SOLID principles for high maintainability.
-* **Contract Validation:** Robust schema enforcement using Pydantic v2 models for complex nested structures.
-* **Security & Auth:** Automated JWT token management and secure session handling.
-* **Advanced Reporting:** Integrated with Allure Report for comprehensive test execution analytics and visualization.
-* **CI/CD Ready:** Configured for automated execution within modern DevOps pipelines.
+
+* **Modular Test Architecture:** Clean separation between API layer, schema validation, and test scenarios to ensure maintainability and scalability.
+
+* **Schema-Based Contract Validation:** API responses are validated using **Pydantic v2 models**, ensuring strict response contracts.
+
+* **Authentication Handling:** Automated JWT authentication flow with session reuse across requests.
+
+* **Structured Logging:** Custom logging with automatic masking of sensitive data such as tokens, emails and passwords.
+
+* **Allure Reporting:** Detailed test execution reports with step-level visibility.
+
+* **CI/CD Integration:** Automated test execution through GitHub Actions pipeline.
 
 ---
 

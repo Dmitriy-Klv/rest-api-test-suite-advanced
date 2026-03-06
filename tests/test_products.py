@@ -6,7 +6,7 @@ from api.products_api import ProductsAPI
 from schemas.product_schema import (
     ProductCreateRequest,
     ProductUpdateRequest,
-    ProductListResponse,
+    ProductListResponse, Product,
 )
 
 pytestmark = allure.feature("Products API")
@@ -226,3 +226,32 @@ def test_products_pagination_consistency(products_api):
 
         intersection = first_ids.intersection(second_ids)
         assert not intersection, f"Duplicated product IDs found: {intersection}"
+
+
+@allure.story("Schema backward compatibility validation")
+def test_products_schema_backward_compatibility(products_api):
+
+    with allure.step("Request products list"):
+        response = products_api.get("/products", expected_status=200)
+        data = ProductListResponse.model_validate(response.json())
+
+    with allure.step("Verify required product fields and types"):
+        sample_product = data.products[0]
+
+        expected_fields = {"id", "title", "description", "price"}
+        actual_fields = set(sample_product.model_dump().keys())
+
+        missing_fields = expected_fields - actual_fields
+        assert not missing_fields, f"Missing core fields in API response: {missing_fields}"
+
+    with allure.step("Check for unexpected schema evolution"):
+        raw_product_data = response.json()["products"][0]
+        model_fields = Product.model_fields.keys()
+
+        new_fields = set(raw_product_data.keys()) - set(model_fields)
+        if new_fields:
+            allure.attach(
+                str(new_fields),
+                name="New undocumented fields detected",
+                attachment_type=allure.attachment_type.TEXT
+            )

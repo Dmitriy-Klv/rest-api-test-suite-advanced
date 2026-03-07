@@ -1,3 +1,4 @@
+import random
 import pytest
 import allure
 from faker import Faker
@@ -255,3 +256,23 @@ def test_products_schema_backward_compatibility(products_api):
                 name="New undocumented fields detected",
                 attachment_type=allure.attachment_type.TEXT
             )
+
+
+@allure.story("Cross-endpoint data consistency validation")
+def test_product_consistency_between_list_and_single(products_api):
+
+    with allure.step("Get list of products"):
+        response = products_api.get("/products", expected_status=200)
+        products_list = ProductListResponse.model_validate(response.json())
+
+    with allure.step("Select random product from list"):
+        random_product = random.choice(products_list.products)
+
+    with allure.step(f"Fetch same product by ID {random_product.id}"):
+        product_by_id = products_api.get_product_by_id(random_product.id)
+
+    with allure.step("Verify that both responses contain identical product data"):
+        assert product_by_id.id == random_product.id
+        assert product_by_id.title == random_product.title
+        assert product_by_id.price == random_product.price
+        assert product_by_id.description == random_product.description

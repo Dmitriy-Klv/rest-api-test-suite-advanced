@@ -1,0 +1,2 @@
+[2026-03-08 18:07:03] [INFO] [api.base_api] Sending POST request to: https://dummyjson.com/auth/login after 0.79s delay
+[2026-03-08 18:07:03] [INFO] [api.base_api] Received response: 200

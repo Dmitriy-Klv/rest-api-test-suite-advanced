@@ -2,6 +2,7 @@ import random
 import pytest
 import allure
 from faker import Faker
+import time
 
 from api.products_api import ProductsAPI
 from schemas.product_schema import (
@@ -276,3 +277,27 @@ def test_product_consistency_between_list_and_single(products_api):
         assert product_by_id.title == random_product.title
         assert product_by_id.price == random_product.price
         assert product_by_id.description == random_product.description
+
+
+@allure.story("API response time SLA validation")
+def test_products_response_time(products_api):
+
+    with allure.step("Send request and measure response time"):
+        start_time = time.perf_counter()
+
+        response = products_api.get("/products", expected_status=200)
+
+        duration = time.perf_counter() - start_time
+
+    with allure.step("Validate response time"):
+        MAX_RESPONSE_TIME = 1.5  # seconds
+
+        assert duration < MAX_RESPONSE_TIME, (
+            f"API response time too slow: {duration:.2f}s "
+            f"(expected < {MAX_RESPONSE_TIME}s)"
+        )
+
+    with allure.step("Validate response structure"):
+        data = ProductListResponse.model_validate(response.json())
+
+        assert len(data.products) > 0

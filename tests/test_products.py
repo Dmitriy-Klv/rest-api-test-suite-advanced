@@ -301,3 +301,21 @@ def test_products_response_time(products_api):
         data = ProductListResponse.model_validate(response.json())
 
         assert len(data.products) > 0
+
+@allure.story("Search should return empty result for non-existing query")
+def test_search_no_results(products_api):
+
+    query = "asdkfjhasdkjfhaskdjfh"
+
+    with allure.step(f"Search for non-existing query: {query}"):
+        response = products_api.get(
+            f"/products/search?q={query}",
+            expected_status=200
+        )
+
+        data = ProductListResponse.model_validate(response.json())
+
+    with allure.step("Verify search returns empty results"):
+        assert data.total == 0 or len(data.products) == 0, (
+            f"Expected no results for query '{query}', but got {len(data.products)}"
+        )

@@ -1,0 +1,1 @@
+{'reviews', 'images', 'stock', 'warrantyInformation', 'tags', 'returnPolicy', 'weight', 'sku', 'minimumOrderQuantity', 'meta', 'thumbnail', 'shippingInformation', 'discountPercentage', 'availabilityStatus', 'dimensions'}

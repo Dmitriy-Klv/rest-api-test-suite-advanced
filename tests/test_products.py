@@ -3,6 +3,7 @@ import pytest
 import allure
 from faker import Faker
 import time
+from api.base_api import APIError
 
 from api.products_api import ProductsAPI
 from schemas.product_schema import (
@@ -319,3 +320,19 @@ def test_search_no_results(products_api):
         assert data.total == 0 or len(data.products) == 0, (
             f"Expected no results for query '{query}', but got {len(data.products)}"
         )
+
+
+@allure.story("Negative: Validation of field types during product creation")
+def test_create_product_invalid_types(products_api):
+
+    invalid_payload = {
+        "title": "Invalid Product",
+        "description": "Testing type mismatch",
+        "price": "string_instead_of_number"
+    }
+
+    with allure.step("Send POST request with invalid 'price' type"):
+        with pytest.raises(APIError) as excinfo:
+            products_api.post("/products/add", json=invalid_payload, expected_status=400)
+
+        assert "400" in str(excinfo.value), f"Expected status code 400 in APIError, but got: {excinfo.value}"

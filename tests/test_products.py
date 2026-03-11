@@ -336,3 +336,19 @@ def test_create_product_invalid_types(products_api):
             products_api.post("/products/add", json=invalid_payload, expected_status=400)
 
         assert "400" in str(excinfo.value), f"Expected status code 400 in APIError, but got: {excinfo.value}"
+
+
+@allure.story("Negative: Request non-existing product")
+def test_get_non_existing_product(products_api):
+
+    non_existing_id = 999999
+
+    with allure.step(f"Request product with non-existing ID {non_existing_id}"):
+
+        response = products_api.get(
+            f"/products/{non_existing_id}",
+            expected_status=404
+        )
+
+    with allure.step("Verify API returns 404 status"):
+        assert response.status_code == 404

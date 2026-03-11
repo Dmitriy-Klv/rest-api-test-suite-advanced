@@ -1,2 +1,0 @@
-[2026-03-11 06:34:17] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/search?q=asdkfjhasdkjfhaskdjfh after 0.49s delay
-[2026-03-11 06:34:17] [INFO] [api.base_api] Received response: 200

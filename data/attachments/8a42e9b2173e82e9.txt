@@ -1,0 +1,10 @@
+[2026-03-12 06:53:56] [INFO] [api.base_api] Sending POST request to: https://dummyjson.com/products/add after 0.25s delay
+[2026-03-12 06:53:57] [INFO] [api.base_api] Received response: 201
+[2026-03-12 06:53:57] [INFO] [api.base_api] Sending PUT request to: https://dummyjson.com/products/1 after 0.12s delay
+[2026-03-12 06:53:58] [INFO] [api.base_api] Received response: 200
+[2026-03-12 06:53:58] [INFO] [api.base_api] Sending DELETE request to: https://dummyjson.com/products/1 after 0.67s delay
+[2026-03-12 06:53:59] [INFO] [api.base_api] Received response: 200
+[2026-03-12 06:53:59] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.65s delay
+[2026-03-12 06:53:59] [INFO] [api.base_api] Received response: 200
+[2026-03-12 06:53:59] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/1 after 0.11s delay
+[2026-03-12 06:53:59] [INFO] [api.base_api] Received response: 200

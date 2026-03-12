@@ -352,3 +352,28 @@ def test_get_non_existing_product(products_api):
 
     with allure.step("Verify API returns 404 status"):
         assert response.status_code == 404
+
+@allure.story("Data mutation safety between resources")
+def test_product_update_does_not_affect_other_products(products_api):
+
+    first_product_id = 1
+    second_product_id = 2
+
+    with allure.step("Fetch original data for both products"):
+        first_product_original = products_api.get_product_by_id(first_product_id)
+        second_product_original = products_api.get_product_by_id(second_product_id)
+
+    with allure.step("Update first product title"):
+        update_payload = ProductUpdateRequest(title="Isolation Test Title")
+        updated_first_product = products_api.update_product(first_product_id, update_payload)
+
+    with allure.step("Fetch second product again after update"):
+        second_product_after = products_api.get_product_by_id(second_product_id)
+
+    with allure.step("Verify first product was updated"):
+        assert updated_first_product.title == "Isolation Test Title"
+
+    with allure.step("Verify second product remained unchanged"):
+        assert second_product_after.model_dump() == second_product_original.model_dump(), (
+            "Update of one product unexpectedly affected another product"
+        )

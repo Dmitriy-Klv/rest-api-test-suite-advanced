@@ -33,3 +33,9 @@ class ProductsAPI(BaseAPI):
     def get_products_by_category(self, category_name: str) -> ProductListResponse:
         response = self.get(f"/products/category/{category_name}", expected_status=200)
         return ProductListResponse.model_validate(response.json())
+
+    def search_products(self, query: str, **kwargs) -> ProductListResponse:
+        params = {"q": query}
+        params.update(kwargs)
+        response = self.get("/products/search", params=params, expected_status=200)
+        return ProductListResponse.model_validate(response.json())

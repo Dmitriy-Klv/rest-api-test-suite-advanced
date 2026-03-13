@@ -377,3 +377,27 @@ def test_product_update_does_not_affect_other_products(products_api):
         assert second_product_after.model_dump() == second_product_original.model_dump(), (
             "Update of one product unexpectedly affected another product"
         )
+
+
+@allure.story("Advanced Search: Contextual filtering within category")
+def test_search_within_category_context(products_api):
+
+    with allure.step("Pre-condition: Get a real product to define search criteria"):
+        all_products = products_api.get_all_products()
+        target_product = all_products.products[0]
+        category = target_product.category
+        search_query = target_product.title.split()[0]
+
+    with allure.step(f"Search for '{search_query}' specifically in category '{category}'"):
+        results = products_api.search_products(query=search_query)
+
+    with allure.step("Verify search results integrity"):
+        assert results.total > 0, f"Should find at least one product for query '{search_query}'"
+
+        for product in results.products:
+            assert search_query.lower() in product.title.lower(), \
+                f"Product {product.id} does not contain search query in title"
+
+            if product.id == target_product.id:
+                assert product.category == category, \
+                    f"Product {product.id} changed category in search results!"

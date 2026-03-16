@@ -401,3 +401,19 @@ def test_search_within_category_context(products_api):
             if product.id == target_product.id:
                 assert product.category == category, \
                     f"Product {product.id} changed category in search results!"
+
+
+@allure.story("Delete operation simulation validation")
+def test_delete_product_response(products_api):
+
+    product_id = 1
+
+    with allure.step(f"Delete product {product_id}"):
+
+        response = products_api.delete_product(product_id)
+
+    with allure.step("Verify delete response structure"):
+
+        assert response["id"] == product_id
+        assert response["isDeleted"] is True
+        assert "deletedOn" in response

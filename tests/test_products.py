@@ -417,3 +417,28 @@ def test_delete_product_response(products_api):
         assert response["id"] == product_id
         assert response["isDeleted"] is True
         assert "deletedOn" in response
+
+
+
+@allure.story("Search products across multiple categories simultaneously")
+def test_search_products_multiple_categories(products_api: ProductsAPI):
+    categories_to_search = ["smartphones", "laptops", "home-decoration"]
+
+    found_products = []
+
+    for category in categories_to_search:
+        with allure.step(f"Fetch products in category: {category}"):
+            response: ProductListResponse = products_api.get_products_by_category(category)
+            found_products.extend(response.products)
+
+    with allure.step("Verify all returned products belong to one of the searched categories"):
+        assert len(found_products) > 0, "No products found across the selected categories"
+
+        for product in found_products:
+            assert product.category in categories_to_search, (
+                f"Product {product.id} belongs to unexpected category: {product.category}"
+            )
+
+    with allure.step("Optional: Attach product IDs for reference"):
+        product_ids = [p.id for p in found_products]
+        allure.attach(str(product_ids), name="Found Product IDs", attachment_type=allure.attachment_type.TEXT)

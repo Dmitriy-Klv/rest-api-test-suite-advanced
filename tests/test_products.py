@@ -4,6 +4,7 @@ import allure
 from faker import Faker
 import time
 from api.base_api import APIError
+import threading
 
 from api.products_api import ProductsAPI
 from schemas.product_schema import (
@@ -442,3 +443,40 @@ def test_search_products_multiple_categories(products_api: ProductsAPI):
     with allure.step("Optional: Attach product IDs for reference"):
         product_ids = [p.id for p in found_products]
         allure.attach(str(product_ids), name="Found Product IDs", attachment_type=allure.attachment_type.TEXT)
+
+
+
+@allure.story("Concurrency: Simulated concurrent updates")
+def test_concurrent_product_updates(products_api):
+    product_id = 1
+
+    update_titles = [
+        "Concurrent Title 1",
+        "Concurrent Title 2",
+        "Concurrent Title 3",
+        "Concurrent Title 4",
+    ]
+
+    results = []
+
+    def update_product(title):
+        payload = ProductUpdateRequest(title=title)
+        updated = products_api.update_product(product_id, payload)
+        results.append(updated.title)
+
+    threads = []
+
+    with allure.step("Run concurrent updates"):
+        for title in update_titles:
+            t = threading.Thread(target=update_product, args=(title,))
+            threads.append(t)
+            t.start()
+
+        for t in threads:
+            t.join()
+
+    with allure.step("Validate all responses"):
+        assert len(results) == len(update_titles)
+
+        for title in results:
+            assert title in update_titles

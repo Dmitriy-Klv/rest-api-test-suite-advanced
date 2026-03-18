@@ -4,6 +4,7 @@ import allure
 from faker import Faker
 import time
 from api.base_api import APIError
+import threading
 
 from api.products_api import ProductsAPI
 from schemas.product_schema import (
@@ -417,3 +418,47 @@ def test_delete_product_response(products_api):
         assert response["id"] == product_id
         assert response["isDeleted"] is True
         assert "deletedOn" in response
+
+
+
+@allure.story("Concurrency: Simultaneous updates should not corrupt data")
+def test_concurrent_product_updates(products_api):
+    product_id = 1
+
+    update_titles = [
+        "Concurrent Title 1",
+        "Concurrent Title 2",
+        "Concurrent Title 3",
+        "Concurrent Title 4",
+    ]
+
+    results = []
+
+    def update_product(title):
+        payload = ProductUpdateRequest(title=title)
+        updated = products_api.update_product(product_id, payload)
+        results.append(updated.title)
+
+    threads = []
+
+    with allure.step("Run concurrent updates in parallel threads"):
+        for title in update_titles:
+            t = threading.Thread(target=update_product, args=(title,))
+            threads.append(t)
+            t.start()
+
+        for t in threads:
+            t.join()
+
+    with allure.step("Fetch final product state"):
+        final_product = products_api.get_product_by_id(product_id)
+
+    with allure.step("Validate final state consistency"):
+        assert final_product.title in update_titles, (
+            f"Final title '{final_product.title}' not in expected updates"
+        )
+
+    with allure.step("Validate all updates were executed"):
+        assert len(results) == len(update_titles), (
+            "Some concurrent updates were lost"
+        )

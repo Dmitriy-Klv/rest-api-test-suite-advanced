@@ -1,0 +1,2 @@
+[2026-03-18 15:16:38] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/999999 after 0.27s delay
+[2026-03-18 15:16:38] [INFO] [api.base_api] Received response: 404

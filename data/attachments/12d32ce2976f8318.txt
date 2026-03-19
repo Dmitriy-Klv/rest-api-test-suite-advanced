@@ -1,0 +1,2 @@
+[2026-03-19 08:10:23] [INFO] [api.base_api] Sending DELETE request to: https://dummyjson.com/products/1 after 0.59s delay
+[2026-03-19 08:10:23] [INFO] [api.base_api] Received response: 200

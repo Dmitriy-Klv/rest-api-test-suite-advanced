@@ -480,3 +480,44 @@ def test_concurrent_product_updates(products_api):
 
         for title in results:
             assert title in update_titles
+
+
+@allure.story("Pagination: Full dataset integrity validation")
+def test_products_full_pagination_integrity(products_api):
+    limit = 10
+    all_products = []
+    seen_ids = set()
+    skip = 0
+
+    with allure.step("Fetch all products page by page"):
+        while True:
+            response = products_api.get(
+                "/products",
+                params={"limit": limit, "skip": skip},
+                expected_status=200,
+            )
+
+            data = ProductListResponse.model_validate(response.json())
+
+            if not data.products:
+                break
+
+            for product in data.products:
+                all_products.append(product)
+
+                assert product.id not in seen_ids, (
+                    f"Duplicate product detected during pagination: {product.id}"
+                )
+                seen_ids.add(product.id)
+
+            skip += limit
+
+    with allure.step("Validate total count matches collected data"):
+        assert len(all_products) == data.total, (
+            f"Mismatch in total products: collected={len(all_products)}, expected={data.total}"
+        )
+
+    with allure.step("Validate no data loss across pagination"):
+        assert len(seen_ids) == len(all_products), (
+            "Data inconsistency: duplicate IDs found or products lost"
+        )

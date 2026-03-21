@@ -521,3 +521,19 @@ def test_products_full_pagination_integrity(products_api):
         assert len(seen_ids) == len(all_products), (
             "Data inconsistency: duplicate IDs found or products lost"
         )
+
+
+@allure.story("Boundary: Accept large product price")
+def test_product_large_price(products_api):
+
+    payload = ProductCreateRequest(
+        title="Expensive Product",
+        description="High price test",
+        price=10**9
+    )
+
+    with allure.step("Create product with very large price"):
+        product = products_api.create_product(payload)
+
+    with allure.step("Verify API accepts large price values"):
+        assert product.price == 10**9

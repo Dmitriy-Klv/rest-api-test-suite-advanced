@@ -1,0 +1,42 @@
+[2026-03-21 12:57:09] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.36s delay
+[2026-03-21 12:57:09] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:10] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.63s delay
+[2026-03-21 12:57:10] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:10] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.28s delay
+[2026-03-21 12:57:10] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:11] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.54s delay
+[2026-03-21 12:57:11] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:12] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.67s delay
+[2026-03-21 12:57:12] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:12] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.57s delay
+[2026-03-21 12:57:12] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:13] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.78s delay
+[2026-03-21 12:57:13] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:14] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.55s delay
+[2026-03-21 12:57:14] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:14] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.42s delay
+[2026-03-21 12:57:15] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:15] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.72s delay
+[2026-03-21 12:57:16] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:16] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.18s delay
+[2026-03-21 12:57:16] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:16] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.15s delay
+[2026-03-21 12:57:16] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:17] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.76s delay
+[2026-03-21 12:57:17] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:18] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.78s delay
+[2026-03-21 12:57:18] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:18] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.39s delay
+[2026-03-21 12:57:19] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:19] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.36s delay
+[2026-03-21 12:57:19] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:20] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.52s delay
+[2026-03-21 12:57:20] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:20] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.19s delay
+[2026-03-21 12:57:20] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:21] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.66s delay
+[2026-03-21 12:57:21] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:21] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.23s delay
+[2026-03-21 12:57:21] [INFO] [api.base_api] Received response: 200
+[2026-03-21 12:57:21] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.14s delay
+[2026-03-21 12:57:22] [INFO] [api.base_api] Received response: 200

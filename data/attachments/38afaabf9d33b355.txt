@@ -1,0 +1,2 @@
+[2026-03-23 07:47:03] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/search?q=Phone after 0.12s delay
+[2026-03-23 07:47:03] [INFO] [api.base_api] Received response: 200

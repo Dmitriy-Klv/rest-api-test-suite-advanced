@@ -537,3 +537,25 @@ def test_product_large_price(products_api):
 
     with allure.step("Verify API accepts large price values"):
         assert product.price == 10**9
+
+
+@allure.story("Consistency: Dummy API does not persist data")
+def test_product_update_is_not_persisted(products_api):
+    product_id = 1
+    new_title = f"Test {random.randint(1000, 9999)}"
+
+    with allure.step("Update product"):
+        updated = products_api.update_product(
+            product_id,
+            ProductUpdateRequest(title=new_title)
+        )
+
+        assert updated.title == new_title
+
+    with allure.step("Fetch product again"):
+        fetched = products_api.get_product_by_id(product_id)
+
+    with allure.step("Verify data is NOT persisted (expected behavior)"):
+        assert fetched.title != new_title, (
+            "Dummy API unexpectedly persisted data"
+        )

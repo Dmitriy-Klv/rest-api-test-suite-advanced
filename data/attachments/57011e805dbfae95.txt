@@ -1,0 +1,4 @@
+[2026-03-23 07:42:34] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products after 0.27s delay
+[2026-03-23 07:42:34] [INFO] [api.base_api] Received response: 200
+[2026-03-23 07:42:34] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/search after 0.55s delay
+[2026-03-23 07:42:34] [INFO] [api.base_api] Received response: 200

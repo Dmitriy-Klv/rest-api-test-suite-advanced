@@ -19,11 +19,6 @@ fake = Faker()
 STABLE_PRODUCT_ID = 1
 
 
-@pytest.fixture
-def products_api():
-    return ProductsAPI()
-
-
 @allure.story("Read + Simulated Write Operations")
 def test_product_lifecycle(products_api):
     with allure.step("Create product (POST /products/add)"):

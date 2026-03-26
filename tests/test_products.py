@@ -554,3 +554,16 @@ def test_product_update_is_not_persisted(products_api):
         assert fetched.title != new_title, (
             "Dummy API unexpectedly persisted data"
         )
+
+
+@allure.story("Search: Empty results for non-existent query")
+def test_search_products_no_results(products_api):
+
+    random_gibberish = "asdfghjkl12345"
+
+    with allure.step(f"Search for non-existent product: {random_gibberish}"):
+        data = products_api.search_products(query=random_gibberish)
+
+    with allure.step("Verify that products list is empty"):
+        assert len(data.products) == 0, f"Expected 0 products, but found {len(data.products)}"
+        assert data.total == 0, f"Expected total 0, but got {data.total}"

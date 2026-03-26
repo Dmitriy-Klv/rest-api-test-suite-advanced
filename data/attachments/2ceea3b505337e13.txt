@@ -1,6 +1,0 @@
-[2026-03-26 06:37:32] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/category/smartphones after 0.34s delay
-[2026-03-26 06:37:32] [INFO] [api.base_api] Received response: 200
-[2026-03-26 06:37:32] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/category/laptops after 0.66s delay
-[2026-03-26 06:37:32] [INFO] [api.base_api] Received response: 200
-[2026-03-26 06:37:33] [INFO] [api.base_api] Sending GET request to: https://dummyjson.com/products/category/home-decoration after 0.46s delay
-[2026-03-26 06:37:33] [INFO] [api.base_api] Received response: 200
